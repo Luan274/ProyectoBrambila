@@ -34,4 +34,6 @@ public partial class Empleado
 
     [InverseProperty("Empleado")]
     public virtual ICollection<Vacacione> Vacaciones { get; set; } = new List<Vacacione>();
+
+    
 }
