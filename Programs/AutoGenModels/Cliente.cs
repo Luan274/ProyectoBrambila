@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Banco;
 
@@ -49,4 +50,25 @@ public partial class Cliente
     [ForeignKey("UserId")]
     [InverseProperty("Clientes")]
     public virtual Usuario? User { get; set; }
+
+    //Funcion para añadir el cliente
+    static (int affected, long clienteId) addCliente(int userID, DateOnly fechaNacimiento, string curp, DateTime horaLogin){
+        using (Bank db = new()){
+            if(db.Clientes is null) return (0, 0);
+            Cliente c = new(){
+                UserId = userID,
+                FechaDeNac = fechaNacimiento.ToString("dd/MM/yyyy"),
+                Curp = curp, 
+                Comportamiento = "Bueno", 
+                Aprovado = 0, 
+                Saldo = 10000, 
+                HoraLogin = horaLogin.ToString(),
+                IntentosFallidos = 0
+            };
+
+            EntityEntry<Cliente> entity = db.Clientes.Add(c);
+            int affected = db.SaveChanges();
+            return(affected, c.ClienteId);
+        }
+    }
 }
