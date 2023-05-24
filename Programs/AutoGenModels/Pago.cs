@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace WorkingWithEFCore.Shared.AutoGen;
+namespace Banco;
 
 [Table("pagos")]
 public partial class Pago
