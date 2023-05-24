@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using static System.Console;
 
 namespace Banco;
 
@@ -42,13 +44,15 @@ public partial class Usuario
         return contra;
     } 
 
-    public static (long affected, long productId) AddProduct(string nombre, string apellido, string DoB)
+    public static (long affected, long UserId) AddUsuario(string nombre, string apellido, string DoB)
     {
         using (Bank db = new())
         {
             if(db.Usuarios is null) return (0,0);
-            if(Validaciones.ContieneNumeros(nombre) || Validaciones.ContieneNumeros(apellido)) return (0,0);
+            WriteLine("Validando numeros");
+            if(!(Validaciones.ContieneNumeros(nombre) || Validaciones.ContieneNumeros(apellido))) return (0,0);
             DateTime fecha;
+            WriteLine("Validando fecha");
             if(!DateTime.TryParse(DoB, out fecha)) return (0,0);
             
             
@@ -62,9 +66,42 @@ public partial class Usuario
             
 
             EntityEntry<Usuario> entity = db.Usuarios.Add(u);
-            int affected =db.SaveChanges();
+            WriteLine("Guardando en BD");
+            int affected;
+        try{
+            affected = db.SaveChanges();
+            }catch(Microsoft.EntityFrameworkCore.DbUpdateException e){
+                WriteLine($"{e}");
+                affected = 0;
+            }
             Console.WriteLine($"State: {entity.State}, ProductId: {u.UserId}");
             return (affected, u.UserId);
         }
     }
+
+    public static void ListUsuario(int? []? productIdToHighlight = null)
+    {
+        using(Bank db = new())
+        {
+            if((db.Usuarios is null) || (!db.Usuarios.Any()))
+            {
+                WriteLine("There are no products");
+                return;
+            }
+            WriteLine("| {0,-3} | {1,-35} | {2,8} | {3,5} | {4}",
+            "Id", "Product Name", "Cost", "Stock", "Disc.");
+            foreach (Usuario u in db.Usuarios)
+            {
+                ConsoleColor previousColor = ForegroundColor;
+                if((productIdToHighlight is not null) && (productIdToHighlight.Contains((int)u.UserId)))
+                {
+                    ForegroundColor = ConsoleColor.Green;
+                }
+                WriteLine("| {0:000} | {1,-35} | {2,8:$#,##0.00} | {3,5} | {4}",
+                u.UserId, u.Nombre, u.Apellido, u.Usuario1, u.Contrasena);
+                ForegroundColor = previousColor;
+            }
+        }
+    }
+
 }
