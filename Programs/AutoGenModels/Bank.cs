@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace WorkingWithEFCore.Shared.AutoGen;
+namespace Banco;
 
 public partial class Bank : DbContext
 {
