@@ -28,7 +28,7 @@ public partial class Cliente
     public string? Comportamiento { get; set; }
 
     [Column("aprovado")]
-    public long? Aprovado { get; set; }
+    public string? Aprovado { get; set; }
 
     [Column("saldo")]
     public long? Saldo { get; set; }
@@ -63,7 +63,7 @@ public partial class Cliente
                 FechaDeNac = fecha.ToString("dd/MM/yyyy"),
                 Curp = curp, 
                 Comportamiento = "Bueno", 
-                Aprovado = 0, 
+                Aprovado = "Pendiente", 
                 Saldo = 10000, 
                 HoraLogin = horaLogin.ToString(),
                 IntentosFallidos = 0
@@ -84,8 +84,8 @@ public partial class Cliente
                 WriteLine("There are no clients");
                 return;
             }
-            WriteLine("| {0,-3} | {1,-16} | {2,18} | {3,15} | {4,8} | {5,8} | {6, 25} | {7}",
-            "Id", "DoB", "CURP", "Comportamiento", "Aprovado", "Saldo", "HoraLogIn", "Int");
+            WriteLine("| {0,-3} | {1,-16} | {2,18} | {3,15} | {4,8} | {5,8} | {6, 25} | {7,3} | {8,3}",
+            "Id", "DoB", "CURP", "Comportamiento", "Aprovado", "Saldo", "HoraLogIn", "Int", "UserID");
             foreach (Cliente c in db.Clientes)
             {
                 ConsoleColor previousColor = ForegroundColor;
@@ -93,8 +93,8 @@ public partial class Cliente
                 {
                     ForegroundColor = ConsoleColor.Green;
                 }
-                WriteLine("| {0, -3} | {1,-16} | {2,18} | {3,15} | {4,8} | {5,8} | {6, 25} | {7}",
-                c.ClienteId, c.FechaDeNac, c.Curp, c.Comportamiento, c.Aprovado, c.Saldo, c.HoraLogin, c.IntentosFallidos);
+                WriteLine("| {0, -3} | {1,-16} | {2,18} | {3,15} | {4,8} | {5,8} | {6, 25} | {7,3} | {8,3}",
+                c.ClienteId, c.FechaDeNac, c.Curp, c.Comportamiento, c.Aprovado, c.Saldo, c.HoraLogin, c.IntentosFallidos, c.UserId);
                 ForegroundColor = previousColor;
             }
         }

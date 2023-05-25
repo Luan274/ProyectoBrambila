@@ -56,6 +56,8 @@ public partial class Bank : DbContext
 
         modelBuilder.Entity<Empleado>(entity =>
         {
+            entity.Property(d => d.Nomina).ValueGeneratedOnAdd();
+            
             entity.HasOne(d => d.Usuario).WithMany(p => p.Empleados).OnDelete(DeleteBehavior.Cascade);
         });
 

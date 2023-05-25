@@ -14,7 +14,7 @@ public partial class Vacacione
     public long Folio { get; set; }
 
     [Column("empleadoID")]
-    public string? EmpleadoId { get; set; }
+    public long? EmpleadoId { get; set; }
 
     [Column("gerenteID")]
     public long? GerenteId { get; set; }
