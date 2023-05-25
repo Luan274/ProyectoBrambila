@@ -20,5 +20,11 @@ partial class Program
         // }
         // Cliente.ListCliente(clienteIdToHighlight: new int?[] {(int)resultAdd.clienteId});
 
+        // string curp = "LOFL030507HDFNSA8D", nombre = "Luis", apellidoP = "López", apellidoM = "Fernández";
+        // DateOnly diaNac = new DateOnly(2003, 5, 7);
+
+        // bool prueba = Validaciones.curpValida(curp, nombre, apellidoP, apellidoM, diaNac);
+        // WriteLine($"{prueba}");
+        // WriteLine($"{quitarAcentos(apellidoP)}");
     }
 }   
