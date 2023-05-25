@@ -49,10 +49,8 @@ public partial class Usuario
         using (Bank db = new())
         {
             if(db.Usuarios is null) return (0,0);
-            WriteLine("Validando numeros");
             if(!(Validaciones.ContieneNumeros(nombre) || Validaciones.ContieneNumeros(apellido))) return (0,0);
             DateOnly fecha;
-            WriteLine("Validando fecha");
             if(!DateOnly.TryParse(DoB, out fecha)) return (0,0);
             
             
@@ -66,7 +64,6 @@ public partial class Usuario
             
 
             EntityEntry<Usuario> entity = db.Usuarios.Add(u);
-            WriteLine("Guardando en BD");
             int affected;
         try{
             affected = db.SaveChanges();
@@ -74,7 +71,6 @@ public partial class Usuario
                 WriteLine($"{e}");
                 affected = 0;
             }
-            Console.WriteLine($"State: {entity.State}, UserId: {u.UserId}");
             return (affected, u.UserId);
         }
     }

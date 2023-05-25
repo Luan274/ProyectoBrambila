@@ -14,7 +14,7 @@ public partial class Gerente
     public long GerenteId { get; set; }
 
     [Column("empleadoID")]
-    public string? EmpleadoId { get; set; }
+    public long? EmpleadoId { get; set; }
 
     [Column("clienteID")]
     public long? ClienteId { get; set; }

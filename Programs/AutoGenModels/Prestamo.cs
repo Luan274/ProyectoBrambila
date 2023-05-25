@@ -14,7 +14,7 @@ public partial class Prestamo
     public long Folio { get; set; }
 
     [Column("empleado")]
-    public string? Empleado { get; set; }
+    public long? Empleado { get; set; }
 
     [Column("tipo")]
     public long? Tipo { get; set; }

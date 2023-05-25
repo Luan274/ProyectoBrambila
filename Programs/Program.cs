@@ -17,7 +17,17 @@ partial class Program
         //     {
         //         WriteLine($"Added Client successful with ID {resultAdd.clienteId}.");
         //     }
-            Cliente.ListCliente(clienteIdToHighlight: new int?[] {(int)1});
+        // Cliente.ListCliente(clienteIdToHighlight: new int?[] {(int)resultAdd.clienteId});
+        Usuario.ListUsuario();
+        WriteLine();
+        Cliente.ListCliente();
+        WriteLine();
+        var resultAdd = Empleado.addEmpleado(fecEntrada: "20/05/2023", Usuario: 1);
+        if(resultAdd.affected == 1){
+            WriteLine($"Added employee succesful wiht nomina {resultAdd.nomina}");
+        }
+        Empleado.ListEmpleado(IdToHighlight: new int?[] {(int)resultAdd.nomina});
+
 
     }
 }   
