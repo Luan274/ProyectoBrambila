@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using static System.Console;
 
 namespace Banco;
 
@@ -34,6 +36,22 @@ public partial class Empleado
 
     [InverseProperty("Empleado")]
     public virtual ICollection<Vacacione> Vacaciones { get; set; } = new List<Vacacione>();
+    static (int affected, string productId) AddEmpleado(string nomina, string fecEntrada, long diasDeVac)
+    {
+        using (Bank db = new())
+        {
+            if (db.Empleados is null) return (0, "");
+            Empleado e = new()
+            {
+                Nomina = nomina,
+                FecEntrada = fecEntrada,
+                DiasDeVac = diasDeVac,
+            };
 
-    
+            EntityEntry<Empleado> entity = db.Empleados.Add(e);
+            int affected = db.SaveChanges();
+            WriteLine($"State: {entity.State}, Nomina: {e.Nomina}");
+            return (affected, e.Nomina);
+        }
+    }
 }
