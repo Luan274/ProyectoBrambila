@@ -11,13 +11,14 @@ partial class Program
         //         WriteLine($"Added product successful with ID {resultAdd.UserId}.");
         //     }
         //     Usuario.ListUsuario(userIdToHighlight: new int?[] {(int)resultAdd.UserId});
-        // var resultAdd = Cliente.addCliente(userID: 4, fechaNacimiento: "13-07-2004", curp: "MAGL040827PFVRNEO0",
+
+        // var resultAdd = Cliente.addCliente(userID: 2, fechaNacimiento: "10-05-2003", curp: "ENRI040827PFVRNEO0",
         //  horaLogin: DateTime.Now);
-        //     if(resultAdd.affected == 1)
-        //     {
-        //         WriteLine($"Added Client successful with ID {resultAdd.clienteId}.");
-        //     }
-            Cliente.ListCliente(clienteIdToHighlight: new int?[] {(int)1});
+        // if(resultAdd.affected == 1)
+        // {
+        //     WriteLine($"Added Client successful with ID {resultAdd.clienteId}.");
+        // }
+        // Cliente.ListCliente(clienteIdToHighlight: new int?[] {(int)resultAdd.clienteId});
 
     }
 }   
