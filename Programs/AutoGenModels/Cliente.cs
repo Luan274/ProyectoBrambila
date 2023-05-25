@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using static System.Console;
 
 namespace Banco;
 
@@ -52,12 +53,14 @@ public partial class Cliente
     public virtual Usuario? User { get; set; }
 
     //Funcion para añadir el cliente
-    static (int affected, long clienteId) addCliente(int userID, DateOnly fechaNacimiento, string curp, DateTime horaLogin){
+    public static (int affected, long clienteId) addCliente(int userID, string fechaNacimiento, string curp, DateTime horaLogin){
         using (Bank db = new()){
             if(db.Clientes is null) return (0, 0);
+            DateOnly fecha;
+            if(!DateOnly.TryParse(fechaNacimiento, out fecha)) return (0,0);
             Cliente c = new(){
                 UserId = userID,
-                FechaDeNac = fechaNacimiento.ToString("dd/MM/yyyy"),
+                FechaDeNac = fecha.ToString("dd/MM/yyyy"),
                 Curp = curp, 
                 Comportamiento = "Bueno", 
                 Aprovado = 0, 
@@ -71,4 +74,30 @@ public partial class Cliente
             return(affected, c.ClienteId);
         }
     }
+
+    public static void ListCliente(int? []? clienteIdToHighlight = null)
+    {
+        using(Bank db = new())
+        {
+            if((db.Usuarios is null) || (!db.Usuarios.Any()))
+            {
+                WriteLine("There are no clients");
+                return;
+            }
+            WriteLine("| {0,-3} | {1,-16} | {2,18} | {3,15} | {4,8} | {5,8} | {6, 25} | {7}",
+            "Id", "DoB", "CURP", "Comportamiento", "Aprovado", "Saldo", "HoraLogIn", "Int");
+            foreach (Cliente c in db.Clientes)
+            {
+                ConsoleColor previousColor = ForegroundColor;
+                if((clienteIdToHighlight is not null) && (clienteIdToHighlight.Contains((int)c.ClienteId)))
+                {
+                    ForegroundColor = ConsoleColor.Green;
+                }
+                WriteLine("| {0, -3} | {1,-16} | {2,18} | {3,15} | {4,8} | {5,8} | {6, 25} | {7}",
+                c.ClienteId, c.FechaDeNac, c.Curp, c.Comportamiento, c.Aprovado, c.Saldo, c.HoraLogin, c.IntentosFallidos);
+                ForegroundColor = previousColor;
+            }
+        }
+    }
+
 }

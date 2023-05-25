@@ -34,12 +34,12 @@ public partial class Usuario
     [InverseProperty("Usuario")]
     public virtual ICollection<Empleado> Empleados { get; set; } = new List<Empleado>();
 
-    private static string CrearUsuario(string nombre, string apellido, DateTime DoB){
+    private static string CrearUsuario(string nombre, string apellido, DateOnly DoB){
         string usuario = nombre.ToLower() + "." + apellido.ToLower() + DoB.Year;
         return usuario;
     } 
 
-    private static string CrearContra(string nombre, string apellido, DateTime DoB){
+    private static string CrearContra(string nombre, string apellido, DateOnly DoB){
         string contra = apellido.Substring(0, Math.Min(apellido.Length, 3)) + DoB.Year + DoB.Month + DoB.Day;   
         return contra;
     } 
@@ -51,9 +51,9 @@ public partial class Usuario
             if(db.Usuarios is null) return (0,0);
             WriteLine("Validando numeros");
             if(!(Validaciones.ContieneNumeros(nombre) || Validaciones.ContieneNumeros(apellido))) return (0,0);
-            DateTime fecha;
+            DateOnly fecha;
             WriteLine("Validando fecha");
-            if(!DateTime.TryParse(DoB, out fecha)) return (0,0);
+            if(!DateOnly.TryParse(DoB, out fecha)) return (0,0);
             
             
             Usuario u = new()
