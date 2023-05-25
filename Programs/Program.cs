@@ -22,12 +22,17 @@ partial class Program
         WriteLine();
         Cliente.ListCliente();
         WriteLine();
-        var resultAdd = Empleado.addEmpleado(fecEntrada: "20/05/2023", Usuario: 1);
-        if(resultAdd.affected == 1){
-            WriteLine($"Added employee succesful wiht nomina {resultAdd.nomina}");
-        }
-        Empleado.ListEmpleado(IdToHighlight: new int?[] {(int)resultAdd.nomina});
+        // var resultAdd = Empleado.addEmpleado(fecEntrada: "20/05/2023", Usuario: 1);
+        // if(resultAdd.affected == 1){
+        //     WriteLine($"Added employee succesful wiht nomina {resultAdd.nomina}");
+        // }
+        // Empleado.ListEmpleado(IdToHighlight: new int?[] {(int)resultAdd.nomina});
 
+        var resultAdd = Boleto.add(cliente: 1, fecha: "25-05-2023");
+        if(resultAdd.affected == 1){
+            WriteLine($"Added Ticket succesful wiht # {resultAdd.ticket}");
+        }
+        Boleto.List(IdToHighlight: new int?[] {(int)resultAdd.ticket});
 
     }
 }   

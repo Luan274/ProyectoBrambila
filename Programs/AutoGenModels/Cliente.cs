@@ -28,7 +28,7 @@ public partial class Cliente
     public string? Comportamiento { get; set; }
 
     [Column("aprovado")]
-    public long? Aprovado { get; set; }
+    public string? Aprovado { get; set; }
 
     [Column("saldo")]
     public long? Saldo { get; set; }
@@ -63,7 +63,7 @@ public partial class Cliente
                 FechaDeNac = fecha.ToString("dd/MM/yyyy"),
                 Curp = curp, 
                 Comportamiento = "Bueno", 
-                Aprovado = 0, 
+                Aprovado = "Pendiente", 
                 Saldo = 10000, 
                 HoraLogin = horaLogin.ToString(),
                 IntentosFallidos = 0
