@@ -101,7 +101,7 @@ public partial class Bank : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.Property(e => e.UserId).ValueGeneratedNever();
+            entity.Property(e => e.UserId).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<Vacacione>(entity =>

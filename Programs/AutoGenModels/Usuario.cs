@@ -74,7 +74,7 @@ public partial class Usuario
                 WriteLine($"{e}");
                 affected = 0;
             }
-            Console.WriteLine($"State: {entity.State}, ProductId: {u.UserId}");
+            Console.WriteLine($"State: {entity.State}, UserId: {u.UserId}");
             return (affected, u.UserId);
         }
     }
@@ -85,11 +85,11 @@ public partial class Usuario
         {
             if((db.Usuarios is null) || (!db.Usuarios.Any()))
             {
-                WriteLine("There are no products");
+                WriteLine("There are no users");
                 return;
             }
             WriteLine("| {0,-3} | {1,-35} | {2,8} | {3,5} | {4}",
-            "Id", "Product Name", "Cost", "Stock", "Disc.");
+            "Id", "First Name", "Last Name", "Username", "Password");
             foreach (Usuario u in db.Usuarios)
             {
                 ConsoleColor previousColor = ForegroundColor;
