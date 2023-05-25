@@ -79,7 +79,7 @@ public partial class Usuario
         }
     }
 
-    public static void ListUsuario(int? []? productIdToHighlight = null)
+    public static void ListUsuario(int? []? userIdToHighlight = null)
     {
         using(Bank db = new())
         {
@@ -88,16 +88,16 @@ public partial class Usuario
                 WriteLine("There are no users");
                 return;
             }
-            WriteLine("| {0,-3} | {1,-35} | {2,8} | {3,5} | {4}",
+            WriteLine("| {0,-3} | {1,-15} | {2,15} | {3,25} | {4}",
             "Id", "First Name", "Last Name", "Username", "Password");
             foreach (Usuario u in db.Usuarios)
             {
                 ConsoleColor previousColor = ForegroundColor;
-                if((productIdToHighlight is not null) && (productIdToHighlight.Contains((int)u.UserId)))
+                if((userIdToHighlight is not null) && (userIdToHighlight.Contains((int)u.UserId)))
                 {
                     ForegroundColor = ConsoleColor.Green;
                 }
-                WriteLine("| {0:000} | {1,-35} | {2,8:$#,##0.00} | {3,5} | {4}",
+                WriteLine("| {0:000} | {1,-15} | {2,15:$#,##0.00} | {3,25} | {4}",
                 u.UserId, u.Nombre, u.Apellido, u.Usuario1, u.Contrasena);
                 ForegroundColor = previousColor;
             }

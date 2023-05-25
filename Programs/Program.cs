@@ -10,7 +10,7 @@ partial class Program
             {
                 WriteLine($"Added product successful with ID {resultAdd.UserId}.");
             }
-            Usuario.ListUsuario(productIdToHighlight: new int?[] {(int)resultAdd.UserId});
+            Usuario.ListUsuario(userIdToHighlight: new int?[] {(int)resultAdd.UserId});
 
     }
 }   

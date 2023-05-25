@@ -43,14 +43,14 @@ public partial class Bank : DbContext
     {
         modelBuilder.Entity<Boleto>(entity =>
         {
-            entity.Property(e => e.Ticket).ValueGeneratedNever();
+            entity.Property(e => e.Ticket).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.ClienteNavigation).WithMany(p => p.Boletos).OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity.Property(e => e.ClienteId).ValueGeneratedNever();
+            entity.Property(e => e.ClienteId).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.User).WithMany(p => p.Clientes).OnDelete(DeleteBehavior.Cascade);
         });
@@ -62,12 +62,12 @@ public partial class Bank : DbContext
 
         modelBuilder.Entity<Estado>(entity =>
         {
-            entity.Property(e => e.EstadoId).ValueGeneratedNever();
+            entity.Property(e => e.EstadoId).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<Gerente>(entity =>
         {
-            entity.Property(e => e.GerenteId).ValueGeneratedNever();
+            entity.Property(e => e.GerenteId).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Gerentes).OnDelete(DeleteBehavior.Cascade);
 
@@ -76,14 +76,14 @@ public partial class Bank : DbContext
 
         modelBuilder.Entity<Pago>(entity =>
         {
-            entity.Property(e => e.Folio).ValueGeneratedNever();
+            entity.Property(e => e.Folio).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.PrestamoNavigation).WithMany(p => p.Pagos).OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Prestamo>(entity =>
         {
-            entity.Property(e => e.Folio).ValueGeneratedNever();
+            entity.Property(e => e.Folio).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.EmpleadoNavigation).WithMany(p => p.Prestamos).OnDelete(DeleteBehavior.Cascade);
 
@@ -96,7 +96,7 @@ public partial class Bank : DbContext
 
         modelBuilder.Entity<Tipo>(entity =>
         {
-            entity.Property(e => e.TipoId).ValueGeneratedNever();
+            entity.Property(e => e.TipoId).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<Usuario>(entity =>
@@ -106,7 +106,7 @@ public partial class Bank : DbContext
 
         modelBuilder.Entity<Vacacione>(entity =>
         {
-            entity.Property(e => e.Folio).ValueGeneratedNever();
+            entity.Property(e => e.Folio).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Empleado).WithMany(p => p.Vacaciones).OnDelete(DeleteBehavior.Cascade);
 
