@@ -44,22 +44,21 @@ public partial class Usuario
         return contra;
     } 
 
-    public static (long affected, long UserId) AddUsuario(string nombre, string apellido, string DoB)
+    public static (long affected, long UserId) AddUsuario(string nombre, string apellido)
     {
         using (Bank db = new())
         {
             if(db.Usuarios is null) return (0,0);
             if(!(Validaciones.ContieneNumeros(nombre) || Validaciones.ContieneNumeros(apellido))) return (0,0);
-            DateOnly fecha;
-            if(!DateOnly.TryParse(DoB, out fecha)) return (0,0);
+
             
             
             Usuario u = new()
             {
                 Nombre = nombre,
                 Apellido = apellido,
-                Usuario1 = CrearUsuario(nombre, apellido, fecha),
-                Contrasena = CrearContra(nombre, apellido, fecha)
+                Usuario1 = "",
+                Contrasena = ""
             };
             
 
