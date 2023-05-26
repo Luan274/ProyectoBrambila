@@ -49,9 +49,7 @@ public partial class Usuario
         using (Bank db = new())
         {
             if(db.Usuarios is null) return (0,0);
-            if(!(Validaciones.ContieneNumeros(nombre) || Validaciones.ContieneNumeros(apellido))) return (0,0);
-
-            
+            if(!(Validaciones.ContieneNumeros(nombre) || Validaciones.ContieneNumeros(apellido))) return (0,0);           
             
             Usuario u = new()
             {
@@ -59,6 +57,35 @@ public partial class Usuario
                 Apellido = apellido,
                 Usuario1 = "",
                 Contrasena = ""
+            };
+            
+
+            EntityEntry<Usuario> entity = db.Usuarios.Add(u);
+            int affected;
+        try{
+            affected = db.SaveChanges();
+            }catch(Microsoft.EntityFrameworkCore.DbUpdateException e){
+                WriteLine($"{e}");
+                affected = 0;
+            }
+            return (affected, u.UserId);
+        }
+    }
+
+    public static (long affected, long UserId) AddUsuario(string nombre, string apellido, string dob)
+    {
+        using (Bank db = new())
+        {
+            if(db.Usuarios is null) return (0,0);
+            if(!(Validaciones.ContieneNumeros(nombre) || Validaciones.ContieneNumeros(apellido))) return (0,0);           
+            DateOnly d;
+            if(!DateOnly.TryParse(dob, out d)) return (0,0);
+            Usuario u = new()
+            {
+                Nombre = nombre,
+                Apellido = apellido,
+                Usuario1 = CrearUsuario(nombre, apellido, d),
+                Contrasena = CrearContra(nombre, apellido, d)
             };
             
 

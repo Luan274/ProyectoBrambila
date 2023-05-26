@@ -60,7 +60,8 @@ partial class Program
     class Person
     {
         public string? first_name { get; set; }
-        public string? middle_name { get; set; }
+        public string? fec_entrada { get; set; }
+        public string? middle_name { get; set;}
         public string? last_name { get; set; }
         public string? dob { get; set; }
         
