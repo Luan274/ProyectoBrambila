@@ -18,21 +18,18 @@ partial class Program
         //         WriteLine($"Added Client successful with ID {resultAdd.clienteId}.");
         //     }
         // Cliente.ListCliente(clienteIdToHighlight: new int?[] {(int)resultAdd.clienteId});
-        Usuario.ListUsuario();
-        WriteLine();
-        Cliente.ListCliente();
-        WriteLine();
+
         // var resultAdd = Empleado.addEmpleado(fecEntrada: "20/05/2023", Usuario: 1);
         // if(resultAdd.affected == 1){
         //     WriteLine($"Added employee succesful wiht nomina {resultAdd.nomina}");
         // }
         // Empleado.ListEmpleado(IdToHighlight: new int?[] {(int)resultAdd.nomina});
 
-        var resultAdd = Boleto.add(cliente: 1, fecha: "25-05-2023");
-        if(resultAdd.affected == 1){
-            WriteLine($"Added Ticket succesful wiht # {resultAdd.ticket}");
-        }
-        Boleto.List(IdToHighlight: new int?[] {(int)resultAdd.ticket});
+        // var resultAdd = Gerente.add(empleado: 2, cliente: 1);
+        // if(resultAdd.affected == 1){
+        //     WriteLine($"Added Ticket succesful wiht # {resultAdd.gerenteID}");
+        // }
+        // Gerente.List(IdToHighlight: new int?[] {(int)resultAdd.gerenteID});
 
     }
 }   
