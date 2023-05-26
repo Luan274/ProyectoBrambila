@@ -36,38 +36,39 @@ public partial class Bank : DbContext
     public virtual DbSet<Vacacione> Vacaciones { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlite("Filename=bank.db");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Boleto>(entity =>
         {
-            entity.Property(e => e.Ticket).ValueGeneratedNever();
+            entity.Property(e => e.Ticket).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.ClienteNavigation).WithMany(p => p.Boletos).OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity.Property(e => e.ClienteId).ValueGeneratedNever();
+            entity.Property(e => e.ClienteId).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.User).WithMany(p => p.Clientes).OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Empleado>(entity =>
         {
+            entity.Property(d => d.Nomina).ValueGeneratedOnAdd();
+            
             entity.HasOne(d => d.Usuario).WithMany(p => p.Empleados).OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Estado>(entity =>
         {
-            entity.Property(e => e.EstadoId).ValueGeneratedNever();
+            entity.Property(e => e.EstadoId).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<Gerente>(entity =>
         {
-            entity.Property(e => e.GerenteId).ValueGeneratedNever();
+            entity.Property(e => e.GerenteId).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Gerentes).OnDelete(DeleteBehavior.Cascade);
 
@@ -76,14 +77,14 @@ public partial class Bank : DbContext
 
         modelBuilder.Entity<Pago>(entity =>
         {
-            entity.Property(e => e.Folio).ValueGeneratedNever();
+            entity.Property(e => e.Folio).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.PrestamoNavigation).WithMany(p => p.Pagos).OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Prestamo>(entity =>
         {
-            entity.Property(e => e.Folio).ValueGeneratedNever();
+            entity.Property(e => e.Folio).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.EmpleadoNavigation).WithMany(p => p.Prestamos).OnDelete(DeleteBehavior.Cascade);
 
@@ -96,17 +97,17 @@ public partial class Bank : DbContext
 
         modelBuilder.Entity<Tipo>(entity =>
         {
-            entity.Property(e => e.TipoId).ValueGeneratedNever();
+            entity.Property(e => e.TipoId).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.Property(e => e.UserId).ValueGeneratedNever();
+            entity.Property(e => e.UserId).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<Vacacione>(entity =>
         {
-            entity.Property(e => e.Folio).ValueGeneratedNever();
+            entity.Property(e => e.Folio).ValueGeneratedOnAdd();
 
             entity.HasOne(d => d.Empleado).WithMany(p => p.Vacaciones).OnDelete(DeleteBehavior.Cascade);
 
