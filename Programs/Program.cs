@@ -11,25 +11,20 @@ partial class Program
         //         WriteLine($"Added product successful with ID {resultAdd.UserId}.");
         //     }
         //     Usuario.ListUsuario(userIdToHighlight: new int?[] {(int)resultAdd.UserId});
-        // var resultAdd = Cliente.addCliente(userID: 4, fechaNacimiento: "13-07-2004", curp: "MAGL040827PFVRNEO0",
+
+        // var resultAdd = Cliente.addCliente(userID: 2, fechaNacimiento: "10-05-2003", curp: "ENRI040827PFVRNEO0",
         //  horaLogin: DateTime.Now);
-        //     if(resultAdd.affected == 1)
-        //     {
-        //         WriteLine($"Added Client successful with ID {resultAdd.clienteId}.");
-        //     }
+        // if(resultAdd.affected == 1)
+        // {
+        //     WriteLine($"Added Client successful with ID {resultAdd.clienteId}.");
+        // }
         // Cliente.ListCliente(clienteIdToHighlight: new int?[] {(int)resultAdd.clienteId});
 
-        // var resultAdd = Empleado.addEmpleado(fecEntrada: "20/05/2023", Usuario: 1);
-        // if(resultAdd.affected == 1){
-        //     WriteLine($"Added employee succesful wiht nomina {resultAdd.nomina}");
-        // }
-        // Empleado.ListEmpleado(IdToHighlight: new int?[] {(int)resultAdd.nomina});
+        // string curp = "LOFL030507HDFNSA8D", nombre = "Luis", apellidoP = "López", apellidoM = "Fernández";
+        // DateOnly diaNac = new DateOnly(2003, 5, 7);
 
-        // var resultAdd = Gerente.add(empleado: 2, cliente: 1);
-        // if(resultAdd.affected == 1){
-        //     WriteLine($"Added Ticket succesful wiht # {resultAdd.gerenteID}");
-        // }
-        // Gerente.List(IdToHighlight: new int?[] {(int)resultAdd.gerenteID});
-
+        // bool prueba = Validaciones.curpValida(curp, nombre, apellidoP, apellidoM, diaNac);
+        // WriteLine($"{prueba}");
+        // WriteLine($"{quitarAcentos(apellidoP)}");
     }
 }   
