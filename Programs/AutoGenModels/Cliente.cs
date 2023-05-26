@@ -53,7 +53,7 @@ public partial class Cliente
     public virtual Usuario? User { get; set; }
 
     //Funcion para añadir el cliente
-    public static (int affected, long clienteId) addCliente(int userID, string fechaNacimiento, string curp, DateTime horaLogin){
+    public static (int affected, long clienteId) addCliente(long userID, string fechaNacimiento, string curp, DateTime horaLogin){
         using (Bank db = new()){
             if(db.Clientes is null) return (0, 0);
             DateOnly fecha;
