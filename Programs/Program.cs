@@ -16,6 +16,24 @@ partial class Program
         // var apr = Usuario.AprovarUsuario(i, a);
         // Joins.JoinClientUser(i);
         // }
+        Write("Ingresa tu usuario: ");
+        string? user = ReadLine();
+        Write("Ingresa tu contraseña: ");
+        string? pass = ReadLine();
+        var a = Validaciones.VerificarCredenciales(user, pass);
+        var tipo = Validaciones.ObtenerTipoUsuario(a.user);
+        WriteLine(tipo.tipo + " " + tipo.id);
+        switch(tipo.tipo){
+            case "Gerente":
+            Joins.JoinGerEmpCliUser(tipo.id);
+            break;
+            case "Empleado":
+            Joins.JoinEmpUser(tipo.id);
+            break;
+            case "Cliente":
+            Joins.JoinClientUser(tipo.id);
+            break;
+        }
 
     }
 }   

@@ -34,4 +34,37 @@ class Validaciones
 
         return true;
     }
+
+    public static (bool val, long? user) VerificarCredenciales(string? usuario, string? contraseña)
+    {
+        using (Bank db = new())
+        {
+            if (db.Usuarios is null) return (false, 0);
+
+            var usuarioExistente = db.Usuarios.FirstOrDefault(u => u.Usuario1 == usuario && u.Contrasena == contraseña);
+            if(usuarioExistente == null) return (false, 0);
+            return (true, usuarioExistente.UserId);
+        }
+    }
+
+    public static (string tipo, long id) ObtenerTipoUsuario(long? userId)
+    {
+        using (Bank db = new())
+        {
+            if (db.Empleados is null || db.Clientes is null || db.Gerentes is null) return ("Vacio", 0);
+                
+            var esCliente = db.Clientes.FirstOrDefault(c => c.UserId == userId);
+            var esEmpleado = db.Empleados.FirstOrDefault(f => f.UsuarioId == userId);
+            if(esEmpleado != null){
+                var esGerente = db.Gerentes.FirstOrDefault(g => g.EmpleadoId == esEmpleado.Nomina);
+                if (esGerente != null) return ("Gerente", esGerente.GerenteId);
+            }
+
+            if (esCliente != null) return ("Cliente", esCliente.ClienteId);
+            if (esEmpleado != null) return ("Empleado", esEmpleado.Nomina);
+
+            return ("Invalido", 0);
+        }
+    }
+
 }
