@@ -17,7 +17,7 @@ class Joins{
             // foreach(var c in  queryJoin)
             // {
                 var c = queryJoin;
-                Console.WriteLine($"{c.ClienteId, -3} | {c.UserId, -3} | {c.Nombre, -10} | {c.Apellido, -10} | {c.FechaDeNac, -10} | {c.Curp, -18} ");
+                Console.WriteLine($"{c.ClienteId, -3} | {c.UserId, -3} | {c.Nombre, -10} | {c.Apellido, -10} | {c.Usuario1, -25} | {c.Contrasena, -15} | {c.FechaDeNac, -10} | {c.Curp, -18} | {c.Aprovado, -10}");
             //}
         }
     }

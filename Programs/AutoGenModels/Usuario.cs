@@ -126,4 +126,42 @@ public partial class Usuario
         }
     }
 
+    public static (long affected, long Id) AprovarUsuario(long id, bool aprovado){
+        using (Bank db = new())
+        {
+            if (db.Clientes is null || db.Usuarios is null) return (0, 0);
+
+            var cliente = db.Clientes.FirstOrDefault(c => c.ClienteId == id);
+
+            if (cliente != null)
+            {
+                cliente.Aprovado = aprovado ? "Aceptada" : "Rechazada";
+                if(aprovado){
+                    var usuario = db.Usuarios.FirstOrDefault(u => u.UserId == cliente.UserId);
+
+                    if (usuario != null )
+                    {
+                        DateOnly d;
+                        if(!DateOnly.TryParse(cliente.FechaDeNac, out d)) return (0,0);
+                        usuario.Usuario1 = CrearUsuario(usuario.Nombre ?? string.Empty, usuario.Apellido ?? string.Empty, d); // Cambiar el nombre de usuario
+                        usuario.Contrasena = CrearContra(usuario.Nombre ?? string.Empty, usuario.Apellido ?? string.Empty, d); // Cambiar la contraseña
+
+                        db.Clientes.Update(cliente);
+                        db.Usuarios.Update(usuario);
+                        db.SaveChanges();
+
+                        return (1, id);
+                    }
+                }
+                else
+                {
+                    db.Clientes.Update(cliente);
+                    db.SaveChanges();
+                    return (1, id);
+                }
+            }
+
+            return (0, 0);
+        }
+    }
 }

@@ -57,7 +57,7 @@ public partial class Cliente
         using (Bank db = new()){
             if(db.Clientes is null) return (0, 0);
             DateOnly fecha;
-            if(!DateOnly.TryParse(fechaNacimiento, out fecha)) return (0,0);
+            if(!DateOnly.TryParse(fechaNacimiento, out fecha) || fecha.Year < 1962) return (0,0);
             Cliente c = new(){
                 UserId = userID,
                 FechaDeNac = fecha.ToString("dd/MM/yyyy"),
