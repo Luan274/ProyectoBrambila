@@ -116,7 +116,7 @@ public partial class Prestamo
             foreach (Prestamo p in db.Prestamos)
             {
                 ConsoleColor previousColor = ForegroundColor;
-                if((IdToHighlight is not null) && (IdToHighlight.Contains((int)c.Nomina)))
+                if((IdToHighlight is not null) && (IdToHighlight.Contains((int)p.Folio)))
                 {
                     ForegroundColor = ConsoleColor.Green;
                 }
